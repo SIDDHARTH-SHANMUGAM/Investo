@@ -1,0 +1,87 @@
+.loginContainer{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .inner{
+        button{
+            height: 40px;
+            width: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background-color: gold;
+            box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
+        }
+        h2{
+            font-size: 30px;
+        }
+        height: 450px;
+        width: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: rgb(43, 113, 226);
+        
+        .stol{
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            justify-content: end;
+            p{
+                padding: 5px;
+            }
+
+            .link{
+                cursor: pointer;
+                color: gold;
+            }
+        }
+    }
+    .ipContainer{
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        div{
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            width: 100%;
+            input{
+                position: relative;
+                font-size: 16px;
+            }
+        }
+        
+    }
+    .ipContainer2{
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        div{
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            width: 100%;
+            input{
+                position: relative;
+                font-size: 16px;
+            }
+        }
+        
+    }
+
+
+
+}
