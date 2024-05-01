@@ -26,6 +26,10 @@ function SignIn() {
             sessionStorage.setItem('token', JSON.stringify(res.data.token));
             navigate('/home');
           }
+          else
+          {
+            alert(res.data.message);
+          }
         })
       }
       else{
@@ -78,7 +82,7 @@ function SignIn() {
               />
           </div>
         </div>
-        <button type='submit' onClick={handleSubmit}> Submit</button>
+        <button type='submit' onClick={handleSubmit}> Get Started</button>
         <div className='stol'>
           <p>Have account already? </p>
           <p className='link' onClick={gotoLogIn}>Login</p>

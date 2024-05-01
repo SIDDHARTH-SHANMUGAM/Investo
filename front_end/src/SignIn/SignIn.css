@@ -9,6 +9,8 @@
     justify-content: center;
     flex-direction: column;
     .inner{
+        border-radius: 20px;
+        box-shadow: 5px 0px 5px 2px rgba(0, 0, 0, 0.368);
         button{
             height: 40px;
             width: 90px;
@@ -21,6 +23,7 @@
         }
         h2{
             font-size: 30px;
+            color: bisque;
         }
         height: 450px;
         width: 600px;
@@ -28,7 +31,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        background-color: rgb(43, 113, 226);
+        background-color: rgb(43, 156, 226);
         
         .stol{
             display: flex;

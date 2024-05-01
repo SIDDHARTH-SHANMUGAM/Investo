@@ -2,6 +2,7 @@ const User = require('../models/UserModel');
 const Counter = require('../models/CounterModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
 
 const login= async(req, res)=>{
   const{email, password}= req.body;
@@ -11,7 +12,8 @@ const login= async(req, res)=>{
       {
         bcrypt.compare(password, user.password)
         .then(isCorrect=>{
-            if(!isCorrect) res.status(404).json({message: "Some Thing Went Wrong"});
+            if(!isCorrect) 
+              res.json({message: "Password is Wrong"});
 
             const token = jwt.sign({
                 userId: user.userId,
@@ -34,6 +36,13 @@ const login= async(req, res)=>{
 
 const register = async(req, res)=> {
   const {name, email, password}= req.body;
+  if (!validator.isEmail(email)) {
+    res.json({message: 'Enter valid email'});
+  }
+  if(password.length<8)
+  {
+    res.json({message: 'Password should be strong length >8'});
+  }
   try{
     let check = await User.findOne({email: email})
     if(check)
@@ -71,11 +80,11 @@ const register = async(req, res)=> {
 
             res.json({message: "signedIn", token: token});
         }).catch((e)=>{
-            res.json({message: 'erroe', error: e});
+            res.json({message: 'error', error: e});
         })
       })
       .catch((e)=>{
-        res.json({message: 'erroe', error: e});
+        res.json({message: 'error', error: e});
       })
     }
   }

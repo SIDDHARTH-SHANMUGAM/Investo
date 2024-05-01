@@ -9,7 +9,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate('');
 
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try{
@@ -22,6 +21,13 @@ function Login() {
             sessionStorage.setItem('token', JSON.stringify(res.data.token));
             navigate('/home');
           }
+          else{
+            alert(res.data.message);
+          }
+          
+        })
+        .catch(e=>{
+          console.log(e);
         })
       }
       catch(e){
@@ -54,7 +60,7 @@ function Login() {
               />
           </div>
         </div>
-        <button type='submit' onClick={handleSubmit}> Submit</button>
+        <button type='submit' onClick={handleSubmit}> Get Started</button>
         <div className='stol'>
           <p>Don't have account? </p>
           <p className='link' onClick={gotoSignIn}>SignIn</p>

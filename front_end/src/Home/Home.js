@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import Holding from '../Holding/Holding';
+import History from '../History/History';
 
 function Home() {
   const navigate = useNavigate('');
@@ -32,10 +33,28 @@ function Home() {
     }
     fetchData();
   },[])
-
+  const [logOut, setLogout] = useState(false);
   const handleLogOut= () =>{
+    setLogout(!logOut);
+
+  }
+  const makeLogout = ()=>{
     sessionStorage.removeItem('token');
     navigate('/');
+
+  }
+  var logoutmask
+  if(logOut)
+  {
+    logoutmask = <div className='logoutContainer'>
+        <p>Are you sure to Logout</p>
+        <br/>
+        <br/>
+      <div className='cont'>
+        <button onClick={makeLogout}> Yes </button>
+        <button onClick={handleLogOut}> NO </button>
+      </div>
+    </div>
   }
 
   const openHoldings = () =>{
@@ -75,10 +94,10 @@ function Home() {
         <div className='pad'></div>
         <h1>Investo</h1>
         <div className='navLinks'>
-            <p onClick={openStocks}>Purchase Stocks</p>
-            <p onClick={openprofile}>Profile</p>
-            <p onClick={openHoldings}>Holdings</p>
-            <p onClick={openHistory}>History</p>
+            <p className={stockBool?'mention':''} onClick={openStocks}>Purchase Stocks</p>
+            <p className={holdingsBool?'mention':''} onClick={openHoldings}>Sell Stocks</p>
+            <p className={historyBool?'mention':''} onClick={openHistory}>History</p>
+            <p className={profileBool?'mention':''} onClick={openprofile}>Profile</p>
             <p onClick={handleLogOut}>Logout</p>
         </div>
       </div>
@@ -98,12 +117,12 @@ function Home() {
         <Profile/>
       }
       {historyBool&&
-        <p>history</p>
+        <History/>
       }
       {holdingsBool&&
         <Holding/>
-
       }
+      {logoutmask}
     </div>
   )
 }
@@ -111,7 +130,6 @@ function Home() {
 function StockCard ({stock})
 {
 
-  const navigate = useNavigate()
   const [boolean, setBoolean] = useState(false);
   const [quantity, setQuantity] = useState();
   const [prize, setPrize] = useState();
@@ -119,7 +137,7 @@ function StockCard ({stock})
     setBoolean(!boolean);
   }
   const getPrize = ()=>{
-      setPrize(quantity*stock.prize);
+      setPrize(Number.parseInt(quantity*stock.prize));
   }
 
   const handlePayment= () =>{
@@ -150,6 +168,7 @@ function StockCard ({stock})
               axios.put("http://localhost:3001/stock/purchaseStock", {stockId, quantity})
               .then((res)=>{
                 console.log(res.data);
+                window. location. reload()
               })
               .catch((er)=>{
                 console.log(er);
@@ -194,24 +213,25 @@ function StockCard ({stock})
 
     newDiv = <div className='newDivContainer'>
       <div className='btc'>
-        <button className='b1' onClick={change}>X</button>
-
       </div>
       <div className='purchaseConatiner'>
-      <div>
-        <h1>Stuffs about comapany</h1>
-        <p>{stock.companyName} has been starts at etc...</p>
-      </div>
+        <div>
+          <h1>{stock.companyName}</h1>
+          <h2>Current Prize &#8377;{stock.prize}</h2>
+        </div>
         <div className='linear'>
           <label>Quantity</label>
           <input type='number' 
           value={quantity} 
           onChange={(e)=>{setQuantity(e.target.value); setPrize('')}} />
-          {quantity&&<button onClick={getPrize}>getPrize</button>}
+          {quantity&&<button onClick={getPrize}>get Total Prize</button>}
         </div>
         {quantity&&prize&&
         <div>
+          <br/>
           <label>Prize: &#8377;{prize}</label>
+          <br/>
+          <br/>
         </div>
         }
         <div>
